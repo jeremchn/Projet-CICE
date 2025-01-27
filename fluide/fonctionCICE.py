@@ -43,4 +43,30 @@ def modif_fichier(file, output):
     with open(output, 'w') as file:
         file.writelines(processed_lines)
 
+def re_corde (DFchordangl, uinf, vrot, nu):
+    """ Calcule le Reynolds en fonction de la corde
+    chordangl : fichier .dat (rayon / cordes / angles)
+    N : nombre de points
+    uinf : vitesse de l'air
+    vrot : vitesse de rotation de l'éolienne
+    nu : viscosité cinématique
+    """
+    index = DFchordangl.index
+    r = DFchordangl[index [0]] # rayon
+    c = DFchordangl[index[0]] # corde
+    U = np.sqrt(uinf**2 + (vrot * r)**2)
+    re = r * c * U / nu
+    c75 = c * 0.75
+    re75 = r * c75 * U / nu
+    return (re, re75)
 
+def graph_re(x,re):
+    """ Fonction qui trace le graphique du Reynolds en fonction de la corde
+    x : corde
+    re : Reynolds
+    """
+    plt.plot(x,re)
+    plt.xlabel('Corde')
+    plt.ylabel('Reynolds')
+    plt.title('Reynolds en fonction de la corde')
+    plt.show()
